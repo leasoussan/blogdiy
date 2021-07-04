@@ -1,0 +1,12 @@
+
+blog/local_settings.py
+
+__pycache__/
+*.pyc
+.idea/
+
+media/**
+
+staticfiles/
+
+.vscode/

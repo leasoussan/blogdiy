@@ -1,0 +1,17 @@
+{% extends 'homepage.html' %}
+{% load i18n %}
+
+
+
+{% block content %}
+
+    <form method="post" action="{% url 'homepage' %}">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button type="submit">{% trans 'register' %}</button>
+    </form>
+
+
+{% endblock %}
