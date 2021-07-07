@@ -4,7 +4,7 @@ from django.urls import path
 # from accounts.views import page_404
 #
 from accounts.views import (
-#     MyLoginView,
+    # MyLoginView,
     Register,
 #     CreateProfile,
 #     EditProfile,

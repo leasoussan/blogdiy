@@ -7,5 +7,9 @@
 
     <div>
     hi
+
+    {% if user.is_authenticated %}
+    {{ user.username }}
+    {% endif %}
     </div>
 {% endblock %}

@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 
 class MyUserCreationForm(UserCreationForm):
     USER_TYPE = [
-        ('is_bloguer', _('bloguer')),
+        ('is_bloger', _('bloger')),
         ]
     usertype = forms.ChoiceField(choices=USER_TYPE, label='registration_type')
     email = forms.EmailField(max_length=60, help_text='Required. Add a valid email address')

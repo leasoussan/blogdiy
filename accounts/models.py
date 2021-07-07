@@ -7,7 +7,7 @@ from django.conf import settings
 from django.urls import reverse
 import datetime
 from django.utils.translation import ugettext_lazy as _
-
+from blogdiy.models import Category
 
 
 # Create your models here.
@@ -58,6 +58,26 @@ class MyUser(AbstractUser):
     def __str__(self):
         return f"{self.id},{str(self.username)}, {self.email}"
 
+    def get_user_type(self):
+        user_type = {
+        'is_bloger':Bloger,
+        'is_business': Business,
+        }
+
+        for key, value in user_type.items():
+
+            if value.objects.filter(user=self).exists():
+                return key
+
+
+    def profile(self):
+        types = [Bloger, Business]
+
+        for value in types:
+            qs = value.objects.filter(user=self)
+            if qs.exists():
+                return qs.first()
+
 
     def profilepic_or_default(self, default_path='media/profile/avatar.png'):
         if self.profile_pic:
@@ -65,4 +85,21 @@ class MyUser(AbstractUser):
         return default_path
 
 
+
+class Bloger(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+
+class Business(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(default='profile/avatar.png', upload_to='media/profile/', blank=True, null=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
+    joined_date = models.DateField(auto_now_add=True)
+    website = models.URLField()
+    description = models.TextField()
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.name}'
 

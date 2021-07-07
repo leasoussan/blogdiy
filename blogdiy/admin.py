@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(DiyProject)
+admin.site.register(Tools)
+admin.site.register(ToolsCategory)
+admin.site.register(Resource)
+admin.site.register(SubCategory)
+admin.site.register(Category)
+admin.site.register(Skills)

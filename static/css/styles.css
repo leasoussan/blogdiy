@@ -1,0 +1,22 @@
+
+
+/*____________________________________________------BOARD__STYLE*/
+
+
+.main_container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #fcf568 ;
+}
+
+
+.board_diy_list{
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.create_form{
+    width: 70%;
+    margin-left: 5rem;
+}
