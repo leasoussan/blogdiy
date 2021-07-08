@@ -1,5 +1,6 @@
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
+
 # from accounts.models import MyUser
 from django.forms import modelform_factory
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation

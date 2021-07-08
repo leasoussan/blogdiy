@@ -98,7 +98,7 @@ class CreateProfile(View):
             profile.user = request.user
 
             profile.save()
-            return redirect('board')
+            return redirect('board_view')
 
         # messages.add_message(request, messages.ERROR, 'You have an error in your form')
 
