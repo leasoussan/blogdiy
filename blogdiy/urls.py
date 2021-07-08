@@ -12,7 +12,7 @@ from blogdiy.views import (
 
 urlpatterns = [
     #
-    path('board/<int:pk>', my_board_view, name='board_view'),
+    path('board/', my_board_view, name='board_view'),
     path('create-project/', CreateProject.as_view(), name='create_project'),
     path('diy-detail/<int:pk>', DiyProjectDetailView.as_view(), name='diy_detail'),
     path('diy-list/', DiyProjectListView.as_view(), name='diy_list'),

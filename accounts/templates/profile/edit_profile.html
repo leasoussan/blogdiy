@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+{% load i18n %}
+{% load mytags %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+    <h2>{{ usertype }} {% trans 'profile_edit' %}</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+      <h3>{% trans 'formuser' %}</h3>
+        <div>
+            {{ user_form.as_p }}
+        </div>
+<hr>
+        <h3>{% trans 'profile_form' %}</h3>
+
+        <div>
+            {{ profile_form.as_p }}
+
+        </div>
+
+
+
+        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+        <input type="submit" value="save">
+    </form>
+
+
+
+
+
+
+{% endblock %}

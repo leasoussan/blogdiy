@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import pre_save
 from django.contrib.contenttypes.fields import GenericRelation
 from datetime import datetime, timedelta
-
+from accounts.models import MyUser, Bloger, Business
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -60,7 +60,7 @@ class Resource(models.Model):
     image = models.ImageField(default='media/image/default.png', upload_to='images/', null=True, blank=True)
     file_rsc = models.FileField(null=True, blank=True)
     text = models.TextField()
-    owner = models.ForeignKey('accounts.MyUser', on_delete=models.CASCADE)
+    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
 
 
@@ -91,6 +91,37 @@ class Tools(models.Model):
         return f"Subject{self.name}"
 
 
+class DiyTask(models.Model):
+    STAGE_CHOICE = (
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+        ("6", "6"),
+        ("7", "7"),
+        ("8", "8"),
+    )
+
+    LEVEL_CHOICE=[
+        ('h', _('hobbie')),
+        ('i', _('intermediate')),
+        ('a', _('advance')),
+    ]
+    level = models.CharField(max_length=50, choices=LEVEL_CHOICE)
+    stage = models.CharField(max_length=10, choices=STAGE_CHOICE, default='start')
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    resources = models.ManyToManyField(Resource, blank=True)
+    required_skill = models.ManyToManyField(Skills, blank=True)
+    created_date = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return f"Subject{self.name}"
+
+    def get_absolute_url(self):
+        return reverse('diy_detail',  kwargs ={'pk':self.id})
+
+
 
 class DiyProject(models.Model):
     LEVEL_CHOICE=[
@@ -104,13 +135,12 @@ class DiyProject(models.Model):
     title = models.CharField(max_length=300)
     description = models.TextField()
     required_tools = models.ManyToManyField(Tools, related_name="required_skills")
-    required_skills = models.ManyToManyField(Skills)
+    required_skills = models.ManyToManyField(Skills, blank=True)
     time_to_complete = models.PositiveIntegerField()
     category = models.ManyToManyField(Category)
     resources = models.ManyToManyField(Resource, blank=True)
-    completed = models.BooleanField(default=False)
-    user = models.ForeignKey('accounts.Bloger', on_delete=models.CASCADE)
-
+    user = models.ForeignKey(Bloger, on_delete=models.CASCADE)
+    tasks = models.ManyToManyField(DiyTask, blank=True)
 
     def __str__(self):
         return f"Subject{self.name}"
