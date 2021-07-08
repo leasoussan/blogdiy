@@ -31,13 +31,14 @@ class Register(View):
             usertype = form.cleaned_data['usertype']
 
             setattr(user, usertype, True)
-
+            print('user', user)
+            print('usertype', usertype)
             user.save()
             user = authenticate(username=username, password=password, usertype=usertype)
             login(request, user)
             # send_welcome_signup(user)
 
-            reverse('create_profile'), form.cleaned_data['usertype']
+            return redirect(reverse('create_profile'), form.cleaned_data['usertype'])
             # return redirect('homepage')
 
         return render(request, 'registration/register.html', {"form": form})
@@ -80,9 +81,11 @@ class CreateProfile(View):
         profile_form = get_user_profile_form(request)
         user = request.user
 
-        return render(request, 'accounts/profile/edit_profile.html', {'profile_form': profile_form,
-                                                                      'user_form': user_form, }
-                      )
+        return render(
+            request, 'profile/edit_profile.html', {
+                'profile_form': profile_form,
+                'user_form': user_form, }
+                )
 
     def post(self, request):
         user_form = UserForm(request.POST, instance=request.user)
@@ -90,18 +93,12 @@ class CreateProfile(View):
         user = request.user
 
         if profile_form.is_valid() and user_form.is_valid():
-
             user_form.save()
-            object = profile_form.save(commit=False)
+            profile = profile_form.save(commit=False)
+            profile.user = request.user
 
-            if request.user.is_bloger:
-                object.user = Bloger.objects.get_or_create(user=request.user)
-                object.save()
-
-            elif request.user.is_business:
-                object.user = Business.objects.get_or_create(user=request.user)
-                object.save()
-            return redirect('dashboard')
+            profile.save()
+            return redirect('board')
 
         # messages.add_message(request, messages.ERROR, 'You have an error in your form')
 
