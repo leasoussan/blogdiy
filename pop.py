@@ -30,7 +30,11 @@ fak = Faker()
 
 MyUser = get_user_model()
 
-
+# longitude = -80.191788
+# latitude = 25.761681
+#
+# user_location = Point(longitude, latitude, srid=4326)
+#
 
 
 def pop_business(n):
@@ -59,6 +63,7 @@ def pop_business(n):
                 address = 'undefine Adress yet',
                 website = 'www.google.com',
                 description = 'School for the people',
+                location = [-80.191788, 25.761681]
             )
 
 

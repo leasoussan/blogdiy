@@ -1,6 +1,6 @@
 # import secrets
-
-from django.db import models
+from django.contrib.gis.db import models
+# from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.urls import reverse
@@ -102,6 +102,7 @@ class Business(models.Model):
     website = models.URLField()
     description = models.TextField()
     name = models.CharField(max_length=50)
+    location = models.PointField()
 
     def __str__(self):
         return f'{self.name}'
