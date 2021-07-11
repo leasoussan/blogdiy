@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     #     app
     'accounts',
     'blogdiy',
-    'extra',
 
 
 

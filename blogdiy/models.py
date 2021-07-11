@@ -115,7 +115,6 @@ class DiyTask(models.Model):
     resources = models.ManyToManyField(Resource, blank=True)
     required_skill = models.ManyToManyField(Skills, blank=True)
     created_date = models.DateField(auto_now_add=True)
-    images = models
     def __str__(self):
         return f"Subject{self.name}"
 
@@ -132,6 +131,7 @@ class DiyProject(models.Model):
     ]
     level = models.CharField(max_length=50, choices=LEVEL_CHOICE)
 
+    name = models.CharField(max_length=200)
     title = models.CharField(max_length=300)
     description = models.TextField()
     required_tools = models.ManyToManyField(Tools, related_name="required_skills")
@@ -143,10 +143,7 @@ class DiyProject(models.Model):
     tasks = models.ManyToManyField(DiyTask, blank=True)
 
     def __str__(self):
-        return f"Subject{self.title}"
+        return f"Subject{self.name}"
 
     def get_absolute_url(self):
         return reverse('diy_detail',  kwargs ={'pk':self.id})
-
-    def name(self):
-        return self.__class__.__name__.lower()

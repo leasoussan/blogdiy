@@ -10,12 +10,18 @@ from blogdiy.forms import AddDiyProject
 from django.contrib import messages
 
 
+
+
+
 def my_board_view(request):
-    context = {
-        'diy_list': DiyProject.objects.all()
+
+    context={
     }
 
+
     return render(request, 'board.html', context)
+
+
 
 
 class CreateProject(CreateView):
@@ -23,12 +29,13 @@ class CreateProject(CreateView):
     template_name = 'crud/create.html'
     form_class = AddDiyProject
 
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user.profile()
-        self.completed = False
+        self.completed=False
         self.object.save()
-        print('form', form)
+        print('form',form)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -40,12 +47,15 @@ class CreateProject(CreateView):
 
 
 class DiyProjectListView(ListView):
-    model = DiyProject
+    model=DiyProject
     template_name = 'diy_list.html'
     context_object_name = 'diy_list'
 
     def get_queryset(self):
-        return DiyProject.objects.all()
+        user = self.request.user.profile()
+        return DiyProject.objects.filter(user=user)
+
+
 
 
 class DiyProjectDetailView(DetailView):
@@ -55,3 +65,6 @@ class DiyProjectDetailView(DetailView):
     def get_object(self):
         pk = self.kwargs.get("pk")
         return get_object_or_404(DiyProject, pk=pk)
+
+
+

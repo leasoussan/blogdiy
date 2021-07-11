@@ -1,24 +1,19 @@
-Hello
+here is the list of your pojects
+
+{{ object }}
 <div>
-{{ diy_list }}
-
-        all project  view
-        {% for project in diy_list %}
-            {{ project.name }}
-        {% endfor %}
-
     {% if user.is_bloger %}
-    **My Projects
 
-    **object:
+bloger her
 
-
-    {% for project in diy_list %}
-        <div>
-
-
-            project: {{ project.name }}
-        </div>
-    {% endfor %}
 {% endif %}
+{% if diy_list %}
+    object
+{{ object }}
+{% for diy in diy_list %}
+{{ diy.name }}
+
+{% endfor %}
+{% endif %}
+
 </div>
