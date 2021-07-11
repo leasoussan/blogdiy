@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from accounts.models import MyUser, Bloger, Business
 from django.utils.translation import ugettext_lazy as _
 
-
+from extra.models import DiscussionModel
 
 
 class Skills(models.Model):
@@ -91,7 +91,7 @@ class Tools(models.Model):
         return f"Subject{self.name}"
 
 
-class DiyTask(models.Model):
+class DiyTask(DiscussionModel):
     STAGE_CHOICE = (
         ("1", "1"),
         ("2", "2"),
@@ -123,7 +123,7 @@ class DiyTask(models.Model):
 
 
 
-class DiyProject(models.Model):
+class DiyProject(DiscussionModel):
     LEVEL_CHOICE=[
         ('h', _('hobbie')),
         ('i', _('intermediate')),
