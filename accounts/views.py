@@ -93,16 +93,20 @@ class CreateProfile(View):
 
             user_form.save()
             object = profile_form.save(commit=False)
-
             if request.user.is_bloger:
                 object.user = Bloger.objects.get_or_create(user=request.user)
                 object.save()
+
                 return redirect('board')
 
             elif request.user.is_business:
                 object.user = Business.objects.get_or_create(user=request.user)
                 object.save()
+
                 return redirect('dashboard')
+
+            return redirect('dashboard')
+
 
         # messages.add_message(request, messages.ERROR, 'You have an error in your form')
 
