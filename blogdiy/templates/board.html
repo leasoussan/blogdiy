@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+profile {{ user.profile }}
+    I have an account
+    {% endif %}
+
+    {% if user.is_bloger %}
+    im bloger
+    {% endif %}
+
+
+    <div class="container_board" >
+
+        <a href="{% url 'create_project' %}">{% trans 'add_project' %}</a>
+
+    </div>
+
+
+<div class="board_diy_list">
+{% trans 'my_diy' %}
+
+{{ object }}
+{{ board_diy_list }}
+
+
+    {% include 'diy_list.html' %}
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

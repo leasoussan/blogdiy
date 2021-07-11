@@ -5,12 +5,13 @@ from django import forms
 from .models import MyUser
 import django.forms.widgets
 from django.contrib.auth import get_user_model
-
+from accounts.models import Bloger, Business
 
 
 class MyUserCreationForm(UserCreationForm):
     USER_TYPE = [
-        ('is_bloguer', _('bloguer')),
+        ('is_bloger', _('bloger')),
+        ('is_business', _('business')),
         ]
     usertype = forms.ChoiceField(choices=USER_TYPE, label='registration_type')
     email = forms.EmailField(max_length=60, help_text='Required. Add a valid email address')
@@ -24,15 +25,18 @@ class MyUserCreationForm(UserCreationForm):
 
 
 
-class BlogerProfileCreationForm(forms.ModelForm):
-    pass
-
-
-
-
 class BusinessProfileCreateForm(forms.ModelForm):
-    pass
+    class Meta:
+        model= Business
+        exclude = ['user']
 
+
+
+
+class BlogerProfileCreateForm(forms.ModelForm):
+    class Meta:
+        model =Bloger
+        exclude = ['user']
 
 
 
